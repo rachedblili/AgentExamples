@@ -175,9 +175,9 @@ class Agent:
     ### These two methods must be implemented for all agents ###
     def chat(self, message):
         # print(f"User message: {message}")  # Debugging
-        self.client.add_message(thread_id=self.thread.id, role="user", content=message)
-        run = self.client.run_assistant(thread_id=self.thread.id, assistant_id=self.assistant.id)
-        response = self.client.get_response(thread_id=self.thread.id, run_id=run.id)
+        self.add_message(thread_id=self.thread.id, role="user", content=message)
+        run = self.run_assistant(thread_id=self.thread.id, assistant_id=self.assistant.id)
+        response = self.get_response(thread_id=self.thread.id, run_id=run.id)
         return response
 
     def clear_chat(self):
