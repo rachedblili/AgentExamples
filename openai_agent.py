@@ -16,13 +16,15 @@ tavily_client = TavilyClient(api_key=tavily_api_key)
 
 
 class Agent:
-    def __init__(self, max_polling_attempts=60, polling_interval=2):
+    def __init__(self, model="gpt-4o-mini", max_polling_attempts=60, polling_interval=2):
         self.client = openai.OpenAI(api_key=openai_api_key)
         self.max_polling_attempts = max_polling_attempts
         self.polling_interval = polling_interval
         self.assistant = self.create_assistant()
         self.thread = self.create_thread()
+        self.model = model
 
+    ### Tools ###
     @staticmethod
     def date_tool():
         """
@@ -36,14 +38,13 @@ class Agent:
         """
         This function searches the web for the given query and returns the results.
         """
-        print("Searching for:", query)
         # For demonstration, call Tavily's search and dump the results as a JSON string.
         search_response = tavily_client.search(query)
         results = json.dumps(search_response.get('results', []))
-        print("Results:")
         print(results)
         return results
 
+    ### Create Assistant with tools ###
     def create_assistant(self, name="Web Search Assistant"):
         """
         Create an assistant with instructions and tool definitions for both the date and web_search functions.
@@ -76,10 +77,11 @@ class Agent:
                     }
                 }}
             ],
-            model="gpt-4o-mini"  # Ensure this is a valid model name
+            model=self.model
         )
         return assistant
 
+    ### Internal workings of the agent ###
     def create_thread(self):
         """Create a new thread (conversation)."""
         thread = self.client.beta.threads.create()
@@ -169,6 +171,8 @@ class Agent:
             print("Polling exceeded maximum attempts.")
             return None
 
+    ### API to the backend ###
+    ### These two methods must be implemented for all agents ###
     def chat(self, message):
         # print(f"User message: {message}")  # Debugging
         self.client.add_message(thread_id=self.thread.id, role="user", content=message)
