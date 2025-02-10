@@ -71,7 +71,6 @@ class Agent:
         )
         self.tools = self._create_tools()
         self.agent = self._create_orchestrator_agent(model)
-        self.messages: list[dict] = []
 
     @staticmethod
     def date_tool() -> str:
@@ -155,10 +154,6 @@ class Agent:
             final_answer = self.agent.run(input_schema)
             self.agent.output_schema = OrchestratorOutputSchema
 
-            self.messages.extend([
-                {"role": "user", "content": message},
-                {"role": "assistant", "content": final_answer.final_answer}
-            ])
             return final_answer.final_answer
 
         except Exception as e:
@@ -170,7 +165,6 @@ class Agent:
         Reset the conversation context.
         """
         try:
-            self.messages = []
             self.agent.memory = AgentMemory(max_messages=100)
             return True
         except Exception as e:
