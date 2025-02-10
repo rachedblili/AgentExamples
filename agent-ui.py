@@ -1,5 +1,5 @@
 import streamlit as st
-from openai_agent import Agent  # Assuming Agent class exists
+from pydantic_agent import Agent  # Assuming Agent class exists
 
 # Fix annoying UI issues
 st.markdown(

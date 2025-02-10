@@ -3,10 +3,15 @@ from dotenv import load_dotenv
 from datetime import date
 from tavily import TavilyClient
 import json
+import asyncio
+import nest_asyncio
 
 # Pydantic AI imports
 from pydantic_ai import Agent as PydanticAgent, RunContext
 from prompts import role, goal, instructions, knowledge
+
+# Apply nest_asyncio to allow running async code in Jupyter-like environments
+nest_asyncio.apply()
 
 # Load environment variables
 load_dotenv()
@@ -74,9 +79,17 @@ class Agent:
             str: Assistant's response
         """
         try:
-            # If we have previous messages, pass them as message history
+            # Create new event loop
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
 
-            result = self.agent.run_sync(message,deps=message, message_history=self.messages)
+            # Run the async function in the loop
+            result = loop.run_until_complete(
+                self.agent.run(message, deps=message, message_history=self.messages)
+            )
+
+            # Close the loop
+            loop.close()
 
             # Maintain conversation history
             self.messages.extend(result.new_messages())

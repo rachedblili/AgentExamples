@@ -46,7 +46,7 @@ class Agent:
         self.agent = ReActAgent.from_tools(
             tools=self.tools,
             llm=self.llm,
-            verbose=True,
+            verbose=False,
             memory=chat_memory
         )
         updated_system_prompt = PromptTemplate("\n".join([role, goal, instructions, knowledge, llama_index_react_prompt]))
