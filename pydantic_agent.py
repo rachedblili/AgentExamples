@@ -5,7 +5,7 @@ from tavily import TavilyClient
 import json
 
 # Pydantic AI imports
-from pydantic_ai import Agent, RunContext
+from pydantic_ai import Agent as PydanticAgent, RunContext
 from prompts import role, goal, instructions, knowledge
 
 # Load environment variables
@@ -15,7 +15,7 @@ load_dotenv()
 tavily_api_key = os.getenv("TAVILY_API_KEY")
 tavily_client = TavilyClient(api_key=tavily_api_key)
 
-class PydanticAgent:
+class Agent:
     def __init__(self, model="gpt-4o-mini"):
         """
         Initialize the Pydantic AI agent.
@@ -24,7 +24,7 @@ class PydanticAgent:
             model (str): The language model to use
         """
         # Create the agent with a comprehensive system prompt
-        self.agent = Agent(
+        self.agent = PydanticAgent(
             f'openai:{model}',
             system_prompt="\n".join([
                 role,
@@ -106,7 +106,7 @@ def main():
     """
     Example usage demonstrating the agent interface.
     """
-    agent = PydanticAgent()
+    agent = Agent()
 
     while True:
         query = input("You: ")
