@@ -55,6 +55,7 @@ class Agent:
         """
         Initialize the Atomic Agents-based agent.
         """
+        self.name = "Atomic Agent"
         self.client = instructor.from_openai(
             openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
         )

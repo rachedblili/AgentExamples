@@ -30,6 +30,7 @@ class Agent:
         Args:
             model (str): The language model to use
         """
+        self.name = "Llama-Index Agent"
         # Initialize the language model
         self.llm = OpenAI(
             api_key=os.getenv("OPENAI_API_KEY"),

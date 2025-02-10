@@ -23,6 +23,7 @@ class Agent:
             max_messages (int): Maximum number of messages to keep in context
             model (str): Anthropic model to use
         """
+        self.name = "Anthropic Agent"
         self.client = anthropic.Anthropic(api_key=anthropic_api_key)
         self.model = model
         self.messages = []

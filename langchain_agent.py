@@ -30,6 +30,7 @@ class Agent:
         Args:
             model (str): The language model to use
         """
+        self.name = "Langchain Agent"
         # Create tools
         self.tools = self._create_tools()
 

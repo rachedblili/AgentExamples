@@ -26,6 +26,7 @@ class Agent:
         Args:
             model (str): The language model to use
         """
+        self.name = "CrewAI Agent"
         # Create tools
         self.tools = self._create_tools()
 

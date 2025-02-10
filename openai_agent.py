@@ -17,6 +17,7 @@ tavily_client = TavilyClient(api_key=tavily_api_key)
 
 class Agent:
     def __init__(self, model="gpt-4o-mini", max_polling_attempts=60, polling_interval=1):
+        self.name = "OpenAI Agent"
         self.model = model
         self.client = openai.OpenAI(api_key=openai_api_key)
         self.max_polling_attempts = max_polling_attempts

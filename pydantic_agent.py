@@ -28,6 +28,7 @@ class Agent:
         Args:
             model (str): The language model to use
         """
+        self.name = "Pydantic Agent"
         # Create the agent with a comprehensive system prompt
         self.agent = PydanticAgent(
             f'openai:{model}',
