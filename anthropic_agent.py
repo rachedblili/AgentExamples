@@ -4,7 +4,7 @@ import json
 from tavily import TavilyClient
 from dotenv import load_dotenv
 from datetime import date
-from prompts import system_prompt
+from prompts import role, goal, instructions, knowledge
 
 # Load environment variables
 load_dotenv()
@@ -15,7 +15,7 @@ tavily_client = TavilyClient(api_key=tavily_api_key)
 
 
 class Agent:
-    def __init__(self, model="claude-3-haiku-20240307"):
+    def __init__(self, model="claude-3-5-haiku-latest"):
         """
         Initialize the Anthropic agent.
 
@@ -28,7 +28,7 @@ class Agent:
         self.messages = []
 
         # Define system prompt and tools
-        self.system_prompt = system_prompt
+        self.system_prompt = "\n".join([role, goal, instructions, knowledge])
 
     @staticmethod
     def date_tool():

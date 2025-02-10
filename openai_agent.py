@@ -5,7 +5,7 @@ import json
 from tavily import TavilyClient
 from dotenv import load_dotenv
 from datetime import date
-from prompts import system_prompt
+from prompts import role, goal, instructions, knowledge
 
 # Load environment variables
 load_dotenv()
@@ -51,7 +51,7 @@ class Agent:
         """
         assistant = self.client.beta.assistants.create(
             name=name,
-            instructions=system_prompt,
+            instructions="\n".join([role, goal, instructions, knowledge]),
             tools=[
                 {"type": "function", "function": {
                     "name": "date",
