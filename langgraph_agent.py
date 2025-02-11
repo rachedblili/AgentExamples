@@ -7,6 +7,7 @@ import json
 # LangGraph and LangChain imports
 from typing import Annotated, TypedDict
 from langgraph.graph.message import add_messages
+from langgraph.checkpoint.memory import MemorySaver
 from langgraph.prebuilt import create_react_agent
 from langchain_openai import ChatOpenAI
 from langchain_core.tools import Tool
@@ -40,6 +41,11 @@ class Agent:
         # Create tools
         self.tools = self._create_tools()
 
+        # Create memory
+        self.memory = MemorySaver()
+        # Memory will be checkpointed per thread. We will start with thread id 1.
+        self.thread_id = 1
+
         # Create the prompt
         self.prompt = self._create_prompt()
 
@@ -54,11 +60,10 @@ class Agent:
         self.graph = create_react_agent(
             model=self.llm,
             tools=self.tools,
-            prompt=self.prompt
+            prompt=self.prompt,
+            checkpointer=self.memory
         )
 
-        # Conversation history
-        self.messages = []
 
     @staticmethod
     def date_tool(tool_input={}):
@@ -112,6 +117,15 @@ class Agent:
             ("placeholder", "{messages}"),
         ])
 
+    def _inc_thread_id(self):
+        """
+        Simply increments the thread id and returns the new id.
+
+        """
+        new_thread_id = self.thread_id + 1
+        self.thread_id = new_thread_id
+        return new_thread_id
+
     def chat(self, message):
         """
         Send a message and get a response.
@@ -125,18 +139,15 @@ class Agent:
         try:
             # Prepare input
             inputs = {"messages": [("user", message)]}
+            config = {"configurable": {"thread_id": str(self.thread_id)}}
 
             # Stream the graph updates and collect the final response
             full_response = ""
-            for event in self.graph.stream(inputs, stream_mode="values"):
+            for event in self.graph.stream(inputs, config=config, stream_mode="values"):
                 if event and "messages" in event:
                     last_message = event["messages"][-1]
                     if hasattr(last_message, "content"):
                         full_response = last_message.content
-
-            # Maintain conversation history
-            self.messages.append({"role": "user", "content": message})
-            self.messages.append({"role": "assistant", "content": full_response})
 
             return full_response
 
@@ -152,7 +163,7 @@ class Agent:
             bool: True if reset was successful
         """
         try:
-            self.messages = []
+            self._inc_thread_id() # Incrementing the thread ID basically resets the memory
             return True
         except Exception as e:
             print(f"Error clearing chat: {e}")
