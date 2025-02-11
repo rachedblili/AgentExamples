@@ -40,21 +40,24 @@ class Agent:
         # Create tools
         self.tools = self._create_tools()
 
-        # Create the agent
+        # Initialize the memory
         chat_memory = ChatMemoryBuffer.from_defaults(
             token_limit=4096
         )
+
+        # Create the agent
         self.agent = ReActAgent.from_tools(
             tools=self.tools,
             llm=self.llm,
             verbose=False,
             memory=chat_memory
         )
+
+        # Customize the system prompt with our own instructions.
         updated_system_prompt = PromptTemplate("\n".join([role, goal, instructions, knowledge, llama_index_react_prompt]))
         self.agent.update_prompts({"agent_worker:system_prompt": updated_system_prompt})
         self.agent.reset()
-        # Conversation history
-        self.messages = []
+
 
     @staticmethod
     def date_tool():
@@ -110,10 +113,6 @@ class Agent:
             # Send message to the agent
             response = self.agent.chat(message)
 
-            # Maintain conversation history
-            self.messages.append({"role": "user", "content": message})
-            self.messages.append({"role": "assistant", "content": str(response)})
-
             return str(response)
 
         except Exception as e:
@@ -130,7 +129,6 @@ class Agent:
         try:
             # Reset the agent's chat history
             self.agent.reset()
-            self.messages = []
             return True
         except Exception as e:
             print(f"Error clearing chat: {e}")
