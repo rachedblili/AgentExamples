@@ -73,6 +73,7 @@ This project is licensed under the MIT license.
 ## Acknowledgments
 
 *   [The Decision Lab](https://thedecisionlab.com): Behavioral Science Applied to Decision-Making.
+*   [Tavily](https://tavily.com/): The tool I used to power the agents' web search capability.
 *   [Langchain](https://github.com/langchain-ai/langchain): A framework for building applications that use large language models.
 *   [LangGraph](https://github.com/langchain-ai/langgraph): A library used to create agent and multi-agent workflows.
 *   [Llama-Index](https://github.com/run-llama/llama_index): A library for building and interacting with large language models.
