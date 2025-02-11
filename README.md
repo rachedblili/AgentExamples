@@ -6,7 +6,7 @@
 This project provides a collection of examples demonstrating how to implement the same agent using different frameworks. The goal is to facilitate comparison and evaluation of various agent frameworks by providing a common interface and use case.
 A simple UI is included to make testing more fun, but the main goal is to provide an simple way to compare the approaches to agent creation offered by each framework. 
 
-The example agent is very simple. It's a decision support agent which has been given instructions to help a use follow the decision support process described here: https://thedecisionlab.com/reference-guide/psychology/decision-making-process
+The example agent is very simple. It's a decision support agent which has been given instructions to help a use follow a [decision making process](https://thedecisionlab.com/reference-guide/psychology/decision-making-process).
 
 The agent has two tools it can use:
    - a date tool, which it can use to figure out what today's date it
@@ -72,6 +72,7 @@ This project is licensed under the MIT license.
 
 ## Acknowledgments
 
+*   [The Decision Lab](https://thedecisionlab.com): Behavioral Science Applied to Decision-Making.
 *   [Langchain](https://github.com/langchain-ai/langchain): A framework for building applications that use large language models.
 *   [LangGraph](https://github.com/langchain-ai/langgraph): A library used to create agent and multi-agent workflows.
 *   [Llama-Index](https://github.com/run-llama/llama_index): A library for building and interacting with large language models.
