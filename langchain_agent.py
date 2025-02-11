@@ -109,6 +109,14 @@ class Agent:
         ]
 
     def _messages_to_str(self):
+        """
+        Convert the messages history into a readable string for inclusion in the prompt.
+
+        Returns:
+            A string of the form:
+                user: hello
+                assistant: hello, how may I help you?
+        """
         return "\n".join([f"{msg['role']}: {msg['content']}" for msg in self.messages])
 
 
