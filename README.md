@@ -7,6 +7,7 @@ This project provides a collection of examples demonstrating how to implement th
 A simple UI is included to make testing more fun, but the main goal is to provide an simple way to compare the approaches to agent creation offered by each framework. 
 
 The example agent is very simple. It's a decision support agent which has been given instructions to help a use follow the decision support process described here: https://thedecisionlab.com/reference-guide/psychology/decision-making-process
+
 The agent has two tools it can use:
    - a date tool, which it can use to figure out what today's date it
    - a web search tool, which allows it to help the decision-making process by conducting some research on behalf of the user. 
