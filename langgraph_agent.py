@@ -14,7 +14,7 @@ from langchain_core.tools import Tool
 from langchain_core.prompts import ChatPromptTemplate
 
 # Prompt components
-from prompts import role, goal, instructions, knowledge, langchain_react_prompt
+from prompts import role, goal, instructions, knowledge
 
 # Load environment variables
 load_dotenv()
