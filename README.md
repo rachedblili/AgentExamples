@@ -38,7 +38,7 @@ To run the project, follow these steps:
 
 1.  Clone the repository: `git clone https://github.com/rachedblili/AgentExamples`
 2.  Go into the project directory: `cd AgentExamples`
-3.  Install the required dependencies: `pip install -r requirements.txt`
+3.  Install the required dependencies: `pip install -r requirements.txt` (you may want to do this in a [Python virtual environment](https://realpython.com/python-virtual-environments-a-primer/))
 4.  To actually run the agents, you need a Tavily AI Research API key.  You can get one here: https://tavily.com/
 5.  Create a new file named `.env` in the project directory.
 6.  Add your API keys to the `.env` file.  Example:
@@ -48,6 +48,8 @@ OPENAI_API_KEY="put your OpenAI key in here"
 ANTHROPIC_API_KEY="put your Anthropic key in here"
 ```
 7.  Run the Streamlit app: `streamlit run agent-ui.py`
+
+Note: You don't need to use the streamlit front-end. The agents can be run directly and will prompt you for input.
 
 ## Using the App
 
