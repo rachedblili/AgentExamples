@@ -39,7 +39,6 @@ class Agent:
         """
         This function searches the web for the given query and returns the results.
         """
-        # For demonstration, call Tavily's search and dump the results as a JSON string.
         search_response = tavily_client.search(query)
         results = json.dumps(search_response.get('results', []))
         print(results)
@@ -90,7 +89,6 @@ class Agent:
 
     def _add_message(self, thread_id, role, content):
         """Add a message to the specified thread."""
-        # print(f"Adding message to thread {thread_id}: {content}")  # Debugging
         message = self.client.beta.threads.messages.create(
             thread_id=thread_id,
             role=role,
@@ -103,7 +101,6 @@ class Agent:
         Start a run by attaching the assistant to the thread.
         Optionally, pass additional instructions for this run.
         """
-        # print(f"Starting run for thread {thread_id} with assistant {assistant_id}")  # Debugging
         run_kwargs = {"assistant_id": assistant_id}
         if instructions:
             run_kwargs["instructions"] = instructions
@@ -120,7 +117,6 @@ class Agent:
         while attempts < self.max_polling_attempts:
             run = self.client.beta.threads.runs.retrieve(thread_id=thread_id, run_id=run_id)
             status = run.status
-            # print(f"Run status: {status}")  # Debugging
 
             if status == "completed":
                 messages = self.client.beta.threads.messages.list(thread_id=thread_id)
@@ -188,10 +184,9 @@ class Agent:
 
         return tool_outputs
 
-    ### API to the backend ###
+    ### API to the frontend ###
     ### These two methods must be implemented for all agents ###
     def chat(self, message):
-        # print(f"User message: {message}")  # Debugging
         self._add_message(thread_id=self.thread.id, role="user", content=message)
         run = self._run_assistant(thread_id=self.thread.id, assistant_id=self.assistant.id)
         response = self._get_response(thread_id=self.thread.id, run_id=run.id)
