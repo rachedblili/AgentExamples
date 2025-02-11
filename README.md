@@ -1,8 +1,7 @@
 # Agent Framework Comparison Project
-=====================================
+-----------
 
 ## Overview
------------
 
 This project provides a collection of examples demonstrating how to implement the same agent using different frameworks. The goal is to facilitate comparison and evaluation of various agent frameworks by providing a common interface and use case.
 A simple UI is included to make testing more fun, but the main goal is to provide an simple way to compare the approaches to agent creation offered by each framework. 
@@ -13,7 +12,6 @@ The agent has two tools it can use:
    - a web search tool, which allows it to help the decision-making process by conducting some research on behalf of the user. 
 
 ## Project Structure
--------------------
 
 The project consists of the following components:
 
@@ -21,7 +19,6 @@ The project consists of the following components:
 *   **Streamlit App**: A user interface application built using Streamlit, allowing users to interact with the agents and compare their behavior.
 
 ## Agent Frameworks
---------------------
 
 The following agent frameworks are currently implemented:
 
@@ -35,7 +32,6 @@ The following agent frameworks are currently implemented:
 * Atomic Agents (`atomic_agent.py`)
 
 ## Getting Started
--------------------
 
 To run the project, follow these steps:
 
@@ -53,7 +49,6 @@ ANTHROPIC_API_KEY="put your Anthropic key in here"
 7.  Run the Streamlit app: `streamlit run agent-ui.py`
 
 ## Using the App
-----------------
 
 The Streamlit app provides a simple interface for interacting with the agents:
 
@@ -63,7 +58,6 @@ The Streamlit app provides a simple interface for interacting with the agents:
 *   Use the "Clear Chat" button to reset the conversation.
 
 ## Contributing
-------------
 
 Contributions to the project are welcome. If you'd like to add a new agent implementation or improve an existing one, please follow these guidelines:
 
@@ -72,12 +66,10 @@ Contributions to the project are welcome. If you'd like to add a new agent imple
 *   Submit a pull request with your changes, including a brief description of the new agent implementation.
 
 ## License
--------
 
 This project is licensed under the MIT license. 
 
 ## Acknowledgments
-----------------
 
 *   [Langchain](https://github.com/langchain-ai/langchain): A framework for building applications that use large language models.
 *   [LangGraph](https://github.com/langchain-ai/langgraph): A library used to create agent and multi-agent workflows.
