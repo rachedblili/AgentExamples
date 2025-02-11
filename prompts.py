@@ -207,7 +207,10 @@ Observation: June 20, 2024
 Thought: I now know the current date. I can provide it as the final answer.
 Final Answer: The current Date is June 20, 2024
 
-Let's go!
+This is the conversation up to this point:
+{chat_history}
+
+Let's get started!
 
 Question: {input}
 {agent_scratchpad}

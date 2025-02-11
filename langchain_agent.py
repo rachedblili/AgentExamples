@@ -108,6 +108,10 @@ class Agent:
             )
         ]
 
+    def _messages_to_str(self):
+        return "\n".join([f"{msg['role']}: {msg['content']}" for msg in self.messages])
+
+
     def chat(self, message):
         """
         Send a message and get a response.
@@ -121,7 +125,7 @@ class Agent:
         try:
             # Invoke the agent with the message
             response = self.agent_executor.invoke(
-                {"input": message}
+                {"input": message, "chat_history": self._messages_to_str()}
             )
             # Extract the output
             assistant_response = response.get('output', 'Sorry, I could not process your request.')
