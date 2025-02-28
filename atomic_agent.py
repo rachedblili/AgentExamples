@@ -21,6 +21,8 @@ from tavily import TavilyClient
 load_dotenv()
 tavily_api_key = os.getenv("TAVILY_API_KEY")
 tavily_client = TavilyClient(api_key=tavily_api_key)
+azure_openai_api_key = os.getenv("AZURE_OPENAI_API_KEY")
+azure_openai_endpoint = os.getenv("AZURE_OPENAI_ENDPOINT")
 
 # Schemas with required docstrings
 class OrchestratorInputSchema(BaseIOSchema):
@@ -57,7 +59,7 @@ class Agent:
         """
         self.name = "Atomic Agent"
         self.client = instructor.from_openai(
-            openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+            openai.AzureOpenAI(api_key=azure_openai_api_key, endpoint=azure_openai_endpoint)
         )
         self.system_prompt = SystemPromptGenerator(
             background=[role, goal, knowledge],

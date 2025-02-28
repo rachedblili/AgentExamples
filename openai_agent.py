@@ -11,15 +11,16 @@ from prompts import role, goal, instructions, knowledge
 load_dotenv()
 
 tavily_api_key = os.getenv("TAVILY_API_KEY")
-openai_api_key = os.getenv("OPENAI_API_KEY")
+azure_openai_api_key = os.getenv("AZURE_OPENAI_API_KEY")
+azure_openai_endpoint = os.getenv("AZURE_OPENAI_ENDPOINT")
 tavily_client = TavilyClient(api_key=tavily_api_key)
 
 
 class Agent:
     def __init__(self, model="gpt-4o-mini", max_polling_attempts=60, polling_interval=1):
-        self.name = "OpenAI Agent"
+        self.name = "Azure OpenAI Agent"
         self.model = model
-        self.client = openai.OpenAI(api_key=openai_api_key)
+        self.client = openai.AzureOpenAI(api_key=azure_openai_api_key, endpoint=azure_openai_endpoint)
         self.max_polling_attempts = max_polling_attempts
         self.polling_interval = polling_interval
         self.assistant = self._create_assistant()
@@ -77,7 +78,9 @@ class Agent:
                     }
                 }}
             ],
-            model=self.model
+            model=self.model,
+            api_key=azure_openai_api_key,
+            endpoint=azure_openai_endpoint
         )
         return assistant
 

@@ -22,6 +22,8 @@ load_dotenv()
 # Initialize Tavily client
 tavily_api_key = os.getenv("TAVILY_API_KEY")
 tavily_client = TavilyClient(api_key=tavily_api_key)
+azure_openai_api_key = os.getenv("AZURE_OPENAI_API_KEY")
+azure_openai_endpoint = os.getenv("AZURE_OPENAI_ENDPOINT")
 
 
 # Define the state for the graph
@@ -51,7 +53,8 @@ class Agent:
 
         # Initialize the language model
         self.llm = ChatOpenAI(
-            api_key=os.getenv("OPENAI_API_KEY"),
+            api_key=azure_openai_api_key,
+            endpoint=azure_openai_endpoint,
             model=model,
             temperature=0
         )
